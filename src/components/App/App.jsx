@@ -3,9 +3,9 @@ import axios from 'axios';
 
 function App () {
   const [ todoList, setTodoList ] = useState( [] );
-    fetchTodoList()
-  useEffect( ()=>{
 
+  useEffect( ()=>{
+    fetchTodoList()
   }, [] );
 
   function fetchTodoList(){
