@@ -25,3 +25,6 @@ VALUES
 	('Meal Prep', false),
 	('Homework', false),
 	('Workout', false);
+
+-- Updating something from FALSE to TRUE
+UPDATE "todo" SET complete =NOT complete WHERE "id"=2;

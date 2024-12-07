@@ -1,5 +1,6 @@
 import {useState, useEffect } from 'react';
 import axios from 'axios';
+import './App.css';
 
 function App () { // I am initializing my variable as an empty array, this will hold my data for my to-do list
   const [ todoList, setTodoList ] = useState( [] );
@@ -20,6 +21,16 @@ function App () { // I am initializing my variable as an empty array, this will 
 
   function toggleME( id ){
     console.log( 'in toggleME', id );
+    const objectToSend = {
+      id: id
+    }
+    axios.put( '/api/todo', objectToSend).then( function( response){
+      console.log( 'back from PUT:', response.data );
+      fetchTodoList();
+    }).catch( function( err ){
+      console.log( err );
+      alert( 'error updating todo item' );
+    })
   }
   return (
     <div>
@@ -27,7 +38,7 @@ function App () { // I am initializing my variable as an empty array, this will 
       <p>{ JSON.stringify( todoList )}</p>
       {
         todoList.map( ( item )=>(
-          <p key={ item.id }>{item.name} <button onClick={ ()=>{ toggleME( item.id ) }}>Toggle Complete</button></p>
+          <p className={ `complete-${ item.complete }` } key={ item.id }>{item.name} <button onClick={ ()=>{ toggleME( item.id ) }}>Toggle Complete</button></p>
         ))
       }
     </div>

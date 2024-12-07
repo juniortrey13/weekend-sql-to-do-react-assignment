@@ -16,7 +16,17 @@ router.get( '/', (req, res )=>{
 // POST
 
 // PUT
-
+router.put( '/', ( req, res)=>{
+    console.log( '//api/todo PUT hit:', req.body);
+    const queryString = `UPDATE "todo" SET complete =NOT complete WHERE "id"=$1;`;
+    const values = [ req.body.id ];
+    pool.query( queryString, values ).then( ( results )=>{
+        res.sendStatus( 200 );
+    }).catch( ( err )=>{
+        console.log( err );
+        res.sendStatus( 400 );
+    })
+})
 // DELETE
 
 module.exports = router;
