@@ -11,7 +11,7 @@ function App () { // I am initializing my variable as an empty array, this will 
   function fetchTodoList(){
     console.log( 'in fetchTodoList' );
     axios.get( 'api/todo' ).then( function( response ){ // Making my GET request
-      console.log( response.data );
+      setTodoList( response.data );
     }).catch( function( err ){
       console.log( err );
       alert( 'error getting to do list' );
@@ -21,6 +21,11 @@ function App () { // I am initializing my variable as an empty array, this will 
     <div>
       <h1>TO DO APP</h1>
       <p>{ JSON.stringify( todoList )}</p>
+      {
+        todoList.map( ( item )=>(
+          <p>{item.name} <button>Toggle Complete</button></p>
+        ))
+      }
     </div>
   );
 
