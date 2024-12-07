@@ -28,3 +28,6 @@ VALUES
 
 -- Updating something from FALSE to TRUE
 UPDATE "todo" SET complete =NOT complete WHERE "id"=2;
+
+-- Deleting something from my table
+DELETE FROM "todo" WHERE id=3;

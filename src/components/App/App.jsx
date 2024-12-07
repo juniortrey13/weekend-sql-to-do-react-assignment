@@ -9,6 +9,17 @@ function App () { // I am initializing my variable as an empty array, this will 
     fetchTodoList()
   }, [] );
 
+  function deleteME( id ){
+    console.log( 'in deleteME', id );
+    axios.delete( `/api/todo?id=${ id }`).then( function( response ){
+      console.log( 'back from DELETE:', response.data );
+      fetchTodoList();
+    }).catch( function( err ){
+      console.log( err );
+      alert( 'error deleting item' );
+    })
+  }
+
   function fetchTodoList(){
     console.log( 'in fetchTodoList' );
     axios.get( 'api/todo' ).then( function( response ){ // Making my GET request
@@ -38,7 +49,10 @@ function App () { // I am initializing my variable as an empty array, this will 
       <p>{ JSON.stringify( todoList )}</p>
       {
         todoList.map( ( item )=>(
-          <p className={ `complete-${ item.complete }` } key={ item.id }>{item.name} <button onClick={ ()=>{ toggleME( item.id ) }}>Toggle Complete</button></p>
+          <p className={ `complete-${ item.complete }` } key={ item.id }>{item.name} 
+          <button onClick={ ()=>{ toggleME( item.id ) }}>Toggle Complete</button>
+          <button onClick={ ()=>{ deleteME( item.id ) }}>Delete</button>
+          </p>
         ))
       }
     </div>

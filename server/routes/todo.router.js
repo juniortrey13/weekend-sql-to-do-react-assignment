@@ -28,5 +28,15 @@ router.put( '/', ( req, res)=>{
     })
 })
 // DELETE
-
+router.delete( '/', ( req, res )=>{
+    console.log( '/api/todo DELETE:', req.body, req.query );
+    const queryString = `DELETE FROM "todo" WHERE id=$1;`;
+    const values = [ req.query.id ];
+    pool.query( queryString, values ).then( ( results )=>{
+        res.send( 200 );
+    }).catch( ( err )=>{
+        console.log( err );
+        res.sendStatus( 400 );
+    })
+})
 module.exports = router;
