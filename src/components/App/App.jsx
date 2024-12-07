@@ -3,7 +3,14 @@ import axios from 'axios';
 
 function App () {
   const [ todoList, setTodoList ] = useState( [] );
+    fetchTodoList()
+  useEffect( ()=>{
 
+  }, [] );
+
+  function fetchTodoList(){
+    console.log( 'in fetchTodoList' );
+  }
   return (
     <div>
       <h1>TO DO APP</h1>
