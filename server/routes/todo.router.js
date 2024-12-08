@@ -14,7 +14,17 @@ router.get( '/', (req, res )=>{
     })
 })
 // POST
-
+router.post( '/', (req, res)=>{
+    console.log( '/api/todo POST:', req.body, req.query);
+    const queryString = `INSERT INTO "todo" ("name", "complete") VALUES ( $1, false);`;
+    const values =[ req.body.name ];
+    pool.query( queryString, values ).then( ( results )=>{
+        res.sendStatus( 201 );
+    }).catch( ( err )=>{
+        console.log( err );
+        res.sendStatus( 400 );
+    })
+})
 // PUT
 router.put( '/', ( req, res)=>{
     console.log( '//api/todo PUT hit:', req.body);

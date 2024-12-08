@@ -14,8 +14,8 @@ function App () { // I am initializing my variable as an empty array, this will 
     const objectToSend = {
       name: newItemName
     }
-    console.log( 'sending:', objectToSend )
-    axios.post( 'api/todo').then( function( response ){
+    console.log( 'sending:', objectToSend );
+    axios.post( 'api/todo', objectToSend ).then( function( response ){
       console.log( 'back from POST:', response.data);
       fetchTodoList();
     }).catch( function( err ){
