@@ -4,10 +4,25 @@ import './App.css';
 
 function App () { // I am initializing my variable as an empty array, this will hold my data for my to-do list
   const [ todoList, setTodoList ] = useState( [] );
+  const [ newItemName, setNewItemName ] = useState( [] );
 
   useEffect( ()=>{  // When component first loads it will execute this code
     fetchTodoList()
   }, [] );
+
+  function addItem(){
+    const objectToSend = {
+      name: newItemName
+    }
+    console.log( 'sending:', objectToSend )
+    axios.post( 'api/todo').then( function( response ){
+      console.log( 'back from POST:', response.data);
+      fetchTodoList();
+    }).catch( function( err ){
+      console.log( err );
+      alert( 'error adding to list');
+    })
+  }
 
   function deleteME( id ){
     console.log( 'in deleteME', id );
@@ -46,6 +61,7 @@ function App () { // I am initializing my variable as an empty array, this will 
   return (
     <div>
       <h1>TO DO APP</h1>
+      <h2>Current List</h2>
       <p>{ JSON.stringify( todoList )}</p>
       {
         todoList.map( ( item )=>(
@@ -55,6 +71,10 @@ function App () { // I am initializing my variable as an empty array, this will 
           </p>
         ))
       }
+      <h2>Add new to-list:</h2>
+      <input type='text' placeholder='To Do'onChange={ (e)=>{ setNewItemName( e.target.value )}}/>
+      <button onClick={addItem}>Add</button>
+      <p>{JSON.stringify( newItemName )}</p>
     </div>
   );
 
